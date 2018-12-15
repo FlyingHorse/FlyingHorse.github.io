@@ -296,6 +296,157 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/odoo崩溃了/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr Mickey">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STAY HUNGRY">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/15/odoo崩溃了/" class="post-title-link" itemprop="http://yoursite.com/index.html">Odoo崩溃了……</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-15 19:35:46 / 修改时间：20:31:41" itemprop="dateCreated datePublished" datetime="2018-12-15T19:35:46+08:00">2018-12-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>刚接触Odoo一个月，使用docker在公司部署了odoo 12，主要用于项目管理。</p>
+<h2 id="Odoo卸载website模块失败，重启后崩溃"><a href="#Odoo卸载website模块失败，重启后崩溃" class="headerlink" title="Odoo卸载website模块失败，重启后崩溃"></a>Odoo卸载website模块失败，重启后崩溃</h2><p>今天想在Odoo中安装一个文档管理组件，尝试了博客和幻灯片模块，安装后发现都是公司官网的形式，并不是想要的公司内部wiki。因此又都分别卸载了。<br>第一次安装博客后卸载没有出问题，之后安装了幻灯片又卸载时报错，没有仔细看就刷新网页，结果报错500，查看odoo日志发现是一些数据库的关于website的列不存在。</p>
+<p>然后重启odoo容器，依然不行。清空浏览器数据，还是不行。<br>初步判断是因为 网站模块和幻灯片模块 卸载未完成导致的。</p>
+<h2 id="直接修改数据库"><a href="#直接修改数据库" class="headerlink" title="直接修改数据库"></a>直接修改数据库</h2><p>Odoo社区中也有反馈类似问题，只是模块不同。其中有人给出了解决方案，在数据库中将相应模块直接修改为 uninstalled状态。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql -d database -c <span class="string">"update ir_module_module set state='uninstalled' where name='module' ;"</span></span><br></pre></td></tr></table></figure>
+<p>查看发现是 website模块和website_slides 模块，直接修改后，odoo恢复正常访问。</p>
+<p>网站模块和幻灯片模块都显示未安装，但重新安装就失败。</p>
+<p>社区讨论里就有明确建议不能从installed状态修改为unisntalled状态，应该修改为to remove状态。再次运行psql命令将两个模块修改为 to remove状态，重启odoo应用，发现日志里会由remove column之类的清除操作，但是都以报错结束，而且odoo依旧无法正常访问。</p>
+<h2 id="根据日志删除冲突数据"><a href="#根据日志删除冲突数据" class="headerlink" title="根据日志删除冲突数据"></a>根据日志删除冲突数据</h2><p>于是，再次将模块置为 unisntalled 状态，再次尝试安装 网站和幻灯片模块，其中安装网站模块报错，一个数据表 ir_translation 中唯一键冲突，查看日志后将冲突数据清楚。再次安装即成功。幻灯片模块没有出问题。<br>再次从webui卸载二者，最后均成功运行。</p>
+<p>实际上，置为to remove状态，然后根据日志清除相关数据，应该也能修复错误，但是在错误状态，日志里会不断有错误日志，增加了寻找真正错误的困难。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/hello-world/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -470,7 +621,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
