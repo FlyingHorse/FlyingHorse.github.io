@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="STAY HUNGRY">
 <meta property="og:description" content="刚接触Odoo一个月，使用docker在公司部署了odoo 12，主要用于项目管理。 Odoo卸载website模块失败，重启后崩溃今天想在Odoo中安装一个文档管理组件，尝试了博客和幻灯片模块，安装后发现都是公司官网的形式，并不是想要的公司内部wiki。因此又都分别卸载了。第一次安装博客后卸载没有出问题，之后安装了幻灯片又卸载时报错，没有仔细看就刷新网页，结果报错500，查看odoo日志发现是一">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-15T12:31:41.312Z">
+<meta property="og:updated_time" content="2018-12-15T12:37:20.931Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Odoo崩溃了……">
 <meta name="twitter:description" content="刚接触Odoo一个月，使用docker在公司部署了odoo 12，主要用于项目管理。 Odoo卸载website模块失败，重启后崩溃今天想在Odoo中安装一个文档管理组件，尝试了博客和幻灯片模块，安装后发现都是公司官网的形式，并不是想要的公司内部wiki。因此又都分别卸载了。第一次安装博客后卸载没有出问题，之后安装了幻灯片又卸载时报错，没有仔细看就刷新网页，结果报错500，查看odoo日志发现是一">
@@ -342,7 +342,7 @@
                 
               
 
-              <time title="创建时间：2018-12-15 19:35:46 / 修改时间：20:31:41" itemprop="dateCreated datePublished" datetime="2018-12-15T19:35:46+08:00">2018-12-15</time>
+              <time title="创建时间：2018-12-15 19:35:46 / 修改时间：20:37:20" itemprop="dateCreated datePublished" datetime="2018-12-15T19:35:46+08:00">2018-12-15</time>
             
 
             
@@ -390,6 +390,9 @@
 <p>社区讨论里就有明确建议不能从installed状态修改为unisntalled状态，应该修改为to remove状态。再次运行psql命令将两个模块修改为 to remove状态，重启odoo应用，发现日志里会由remove column之类的清除操作，但是都以报错结束，而且odoo依旧无法正常访问。</p>
 <h2 id="根据日志删除冲突数据"><a href="#根据日志删除冲突数据" class="headerlink" title="根据日志删除冲突数据"></a>根据日志删除冲突数据</h2><p>于是，再次将模块置为 unisntalled 状态，再次尝试安装 网站和幻灯片模块，其中安装网站模块报错，一个数据表 ir_translation 中唯一键冲突，查看日志后将冲突数据清楚。再次安装即成功。幻灯片模块没有出问题。<br>再次从webui卸载二者，最后均成功运行。</p>
 <p>实际上，置为to remove状态，然后根据日志清除相关数据，应该也能修复错误，但是在错误状态，日志里会不断有错误日志，增加了寻找真正错误的困难。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://www.odoo.com/forum/help-1/question/how-to-uninstall-upgrade-a-module-when-web-page-is-not-accessible-73128" target="_blank" rel="noopener">https://www.odoo.com/forum/help-1/question/how-to-uninstall-upgrade-a-module-when-web-page-is-not-accessible-73128</a></li>
+</ol>
 
       
     </div>
@@ -537,7 +540,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Odoo卸载website模块失败，重启后崩溃"><span class="nav-number">1.</span> <span class="nav-text">Odoo卸载website模块失败，重启后崩溃</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接修改数据库"><span class="nav-number">2.</span> <span class="nav-text">直接修改数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据日志删除冲突数据"><span class="nav-number">3.</span> <span class="nav-text">根据日志删除冲突数据</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Odoo卸载website模块失败，重启后崩溃"><span class="nav-number">1.</span> <span class="nav-text">Odoo卸载website模块失败，重启后崩溃</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接修改数据库"><span class="nav-number">2.</span> <span class="nav-text">直接修改数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据日志删除冲突数据"><span class="nav-number">3.</span> <span class="nav-text">根据日志删除冲突数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
